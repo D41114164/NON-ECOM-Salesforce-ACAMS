@@ -1,0 +1,9 @@
+<apex:component >
+    <div class="acamsheader">
+        <div id="acamslogodiv">
+            <apex:outputLink value="{!$Site.Prefix}" id="acamsLogoLnk">
+                <img src="{!URLFOR($Resource.ACAMS_Certification_Application_Resources, 'images/acams-logo.jpg')}" alt="ACAMS Logo" />
+            </apex:outputLink>
+        </div>
+    </div>
+</apex:component>

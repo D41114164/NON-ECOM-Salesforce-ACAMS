@@ -1,0 +1,20 @@
+<apex:component access="global" >
+
+    <table style="BORDER: #b2cce5 1px solid;" border="0" cellspacing="0" cellpadding="0" width="597" align="center" height="105">
+        <tbody>
+        <tr>
+            <td style="PADDING-BOTTOM: 12px; PADDING-LEFT: 10px; PADDING-TOP: 10px" valign="top" width="134" align="center"><!-- BECKER LOGO --><a
+                        href="{!$Label.ACAMSGlobalEmail_LogoLink}"><img src="{!$Label.ACAMSGlobalEmail_LogoSource}" border="0" width="134" height="90"
+                                                          style="DISPLAY: block" alt="{!$Label.ACAMSGlobalEmail_LogoAltText}"/></a>
+            </td>
+            <td style="PADDING-BOTTOM: 14px; PADDING-RIGHT: 5px" valign="bottom" align="right">
+                <table cellpadding="0" cellspacing="0" border="0" width="125">
+                    <tr style="padding-right:11px" align="left" valign="top">
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</apex:component>

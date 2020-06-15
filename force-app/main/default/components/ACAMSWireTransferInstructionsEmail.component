@@ -1,0 +1,127 @@
+<apex:component access="global">
+    <apex:attribute name="order" description="Order Details" type="ccrz__E_Order__c"/>
+
+    <html>
+    <head>
+        <style type="text/css" xml:space="preserve">
+        BODY { BACKGROUND-COLOR: #ffffff }
+    </style>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    </head>
+    <body bgcolor="#FFFFFF">
+    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+        <td><c:ACAMSEmailHeader /></td>
+        <tbody>
+        <tr>
+            <td valign="top" align="center">
+                <table style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" border="0" cellspacing="0" cellpadding="0" width="595" align="center">
+                    <tbody>
+                    <tr>
+                        <td style="BORDER: #b2cce5 1px solid; BORDER-TOP: 7px;">
+
+                            <table border="0" cellspacing="0" cellpadding="0" width="597" height="5">
+                                <tbody style="BORDER: 10px solid;"> </tbody>
+                            </table>
+
+                            <table style="MARGIN-TOP: 0px" border="0" cellspacing="0" cellpadding="0" width="597" align="center">
+                                <tbody>
+                                <tr>
+                                    <td style="PADDING-BOTTOM: 24px; PADDING-TOP: 20px" valign="top" align="center">
+
+                                        <table width="550" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td>
+                                                    <table width="550" border="0" cellspacing="0" cellpadding="0" style="margin-top:5px; font-family:ProximaNova, Arial, Helvetica, sans-serif; font-size:14px; line-height:18px; font-weight:normal; color:#000000; text-align:left;">
+                                                        <tr>
+
+                                                            <td style="PADDING-BOTTOM: 24px; PADDING-TOP: 20px" valign="top" align="center">
+
+                                                                <table width="550" border="0" cellspacing="0" cellpadding="0">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <table width="550" border="0" cellspacing="0" cellpadding="0" style="margin-top:5px; font-family:ProximaNova, Arial, Helvetica, sans-serif; font-size:14px; line-height:18px; font-weight:normal; color:#000000; text-align:left;">
+                                                                                <tr>
+                                                                                    <td valign="top">
+                                                                                        <apex:outputText value="{!$Label.ACAMSGlobalEmail_Dear} {0}, ">
+                                                                                            <apex:param value="{!order.ccrz__Contact__r.Name}"/>
+                                                                                        </apex:outputText>
+                                                                                        <br/><br/>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <p>
+                                                                                            <apex:outputText value="{!$Label.ACAMSWireTransferInstructionsEmail_WTMessage}"/>
+                                                                                        </p>
+                                                                                        <apex:outputText value="{!$Label.ACAMSOrderConfirmationEmail_OrderNumber}: "/>
+                                                                                        <apex:outputText value="{0, number, 0000000000000}">
+                                                                                            <apex:param value="{!order.ccrz__OrderNumber__c}" />
+                                                                                        </apex:outputText>
+                                                                                        <br/>
+                                                                                        <apex:outputText value="{!$Label.ACAMSWireTransferInstructionsEmail_OrderTotal}: "/>
+                                                                                        <apex:outputText value="{0, number, currency}">
+                                                                                            <apex:param value="{!order.ccrz__TotalAmount__c}" />
+                                                                                        </apex:outputText>
+                                                                                        <br/><br/>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                            <table width="550" border="0" cellspacing="0" cellpadding="0" style="margin-top:5px; font-family:ProximaNova, Arial, Helvetica, sans-serif; font-size:14px; line-height:18px; font-weight:normal; color:#000000; text-align:left;">
+                                                                                <tr>
+                                                                                    <td width="550">
+                                                                                        <b>
+                                                                                            <apex:outputText value="{!$Label.ACAMSWireTransferInstructionsEmail_WTInfo}"/>
+                                                                                        </b>
+                                                                                        <br/><br/>
+                                                                                        <b>
+                                                                                            <apex:outputText value="{!$Label.ACAMSWireTransferInstructionsEmail_ReceivingBankName}"/>
+                                                                                        </b>
+                                                                                        <p>
+                                                                                            <apex:outputText style="white-space:pre;" value="{!$Label.ACAMSWireTransferInstructionsEmail_ReceivingBankInfo}" escape="false"/>
+                                                                                        </p>
+                                                                                    </td>
+                                                                                    <td width="550">
+                                                                                        <br/>
+                                                                                        <b>
+                                                                                            <apex:outputText value="{!$Label.ACAMSWireTransferInstructionsEmail_Beneficiary}"/>
+                                                                                        </b>
+                                                                                        <p>
+                                                                                            <apex:outputText style="white-space:pre;" value="{!$Label.ACAMSWireTransferInstructionsEmail_BeneficiaryInfo}" escape="false"/>
+                                                                                        </p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <br/>
+                                                                                        <p>{!$Label.ACAMSGlobalEmail_Sincerly}</p>
+                                                                                        <p>{!$Label.ACAMSWelcomeEmail_StoreName}<br/>
+                                                                                            <a href="{!$Label.ADTWelcomeEmail_StoreUrl}">{!$Label.ADTWelcomeEmail_StoreUrl}</a>
+                                                                                        </p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+        <td><c:ACAMSEmailFooter /></td>
+    </table>
+    </body>
+    </html>
+</apex:component>

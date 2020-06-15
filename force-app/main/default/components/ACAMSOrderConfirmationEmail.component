@@ -1,0 +1,364 @@
+<apex:component access="global">
+    <apex:attribute name="order" description="Order details" type="ccrz__E_Order__c"/>
+    <html>
+    <head>
+        <style type="text/css">
+            body {
+                width: 1024px;
+                height: 870px;
+                background-color: #ffffff;
+            }
+            .email-title {
+                width: 500px;
+                height: 32px;
+                font-family: HelveticaNeue;
+                font-size: 24px;
+                font-weight: 500;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.33;
+                letter-spacing: 0.5px;
+                color: #0a1f44;
+            }
+            .order-information {
+                width: 500px;
+                font-family: HelveticaNeue;
+                font-size: 16px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.5;
+                letter-spacing: normal;
+                color: #0a1f44;
+            }
+            .product .image {
+                width: 96px;
+                height: 96px;
+            }
+            .product .title {
+                height: 24px;
+                font-family: HelveticaNeue;
+                font-size: 16px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.5;
+                letter-spacing: normal;
+                color: #0a1f44;
+            }
+            .product .description {
+                width: 500px;
+                height: 32px;
+                font-family: HelveticaNeue;
+                font-size: 12px;
+                font-weight: 500;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.33;
+                letter-spacing: normal;
+                color: #0a1f44;
+            }
+            .shipping-address .title {
+                height: 24px;
+                font-family: HelveticaNeue;
+                font-size: 16px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.5;
+                letter-spacing: normal;
+                color: #0a1f44;
+            }
+            .shipping-address .details {
+                width: 500px;
+                font-family: HelveticaNeue;
+                font-size: 16px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.5;
+                letter-spacing: normal;
+                color: #0a1f44;
+            }
+            .shipping-method .title {
+                width: 500px;
+                height: 24px;
+                font-family: HelveticaNeue;
+                font-size: 16px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.5;
+                letter-spacing: normal;
+                color: #0a1f44;
+            }
+            .shipping-method .details .line-1 {
+                width: 500px;
+                height: 24px;
+                font-family: HelveticaNeue;
+                font-size: 16px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.5;
+                letter-spacing: normal;
+                color: #0a1f44;
+            }
+            .shipping-method .details .line-2 {
+                width: 500px;
+                height: 48px;
+                font-family: HelveticaNeue;
+                font-size: 16px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.5;
+                letter-spacing: normal;
+                color: #0a1f44;
+            }
+            .shipping-method .details .line-3 {
+                width: 500px;
+                height: 48px;
+                font-family: HelveticaNeue;
+                font-size: 12px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.33;
+                letter-spacing: normal;
+                color: #67758b;
+            }
+            .payment-method .title {
+                width: 500px;
+                height: 24px;
+                font-family: HelveticaNeue;
+                font-size: 16px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.5;
+                letter-spacing: normal;
+                color: #0a1f44;
+            }
+            .payment-method .details {
+                width: 500px;
+                font-family: HelveticaNeue;
+                font-size: 16px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.5;
+                letter-spacing: normal;
+                color: #0a1f44;
+            }
+
+        </style>
+
+    </head>
+    <body>
+    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+        <td><c:ACAMSEmailHeader /></td>
+        <tbody>
+        <tr>
+            <td valign="top" align="center">
+                <table style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" border="0" cellspacing="0" cellpadding="0" width="595" align="center">
+                    <tbody>
+                    <tr>
+                        <td style="BORDER: #b2cce5 1px solid; BORDER-TOP: 7px;">
+                            <table border="0" cellspacing="0" cellpadding="0" width="597" height="5">
+                                <tbody style="BORDER: 10px solid;"> </tbody>
+                            </table>
+                            <table style="MARGIN-TOP: 0px" border="0" cellspacing="0" cellpadding="0" width="597" align="center">
+                                <tbody>
+                                <tr>
+                                    <td style="PADDING-BOTTOM: 24px; PADDING-TOP: 20px" valign="top" align="center">
+
+                                        <table width="550" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td>
+                                                    <table width="550" border="0" cellspacing="0" cellpadding="0" style="margin-top:5px; font-family:ProximaNova, Arial, Helvetica; font-size:14px; line-height:18px; font-weight:normal; color:#000000; text-align:left;">
+                                                        <tr>
+                                                            <td style="line-height:150%;">
+                                                                <div class="email-title">
+                                                                    {!$Label.ACAMSOrderConfirmationEmail_EmailTitle}
+                                                                </div>
+                                                                <br/>
+                                                                <div class="order-information">
+                                                                    <div>
+                                                                        <apex:outputText value="{!$Label.ACAMSOrderConfirmationEmail_Instructions1}" escape="false"/>
+                                                                    </div>
+                                                                    <div>
+                                                                        <apex:outputText value="{!$Label.ACAMSOrderConfirmationEmail_OrderNumber}: {0, number, 0000000000000}">
+                                                                            <apex:param value="{!order.ccrz__OrderNumber__c}" />
+                                                                        </apex:outputText>
+                                                                    </div>
+                                                                    <div>
+                                                                        <apex:outputText value="{!$Label.ACAMSOrderConfirmationEmail_OrderDate}: {0,date,MM/dd/yyyy}">
+                                                                            <apex:param value="{!order.ccrz__OrderDate__c}"/>
+                                                                        </apex:outputText>
+                                                                    </div>
+                                                                    <div>
+                                                                        <apex:outputText value="{!$Label.ACAMSOrderConfirmationEmail_OrderStatus}: {0}">
+                                                                            <apex:param value="{!order.ccrz__OrderStatus__c}"/>
+                                                                        </apex:outputText>
+                                                                    </div>
+                                                                    <div>
+                                                                        <apex:outputText value="{!$Label.ACAMSOrderConfirmationEmail_NextStatusUpdate}" rendered="{!IF(order.ccrz__OrderStatus__c == 'On Hold', TRUE, FALSE)}"/>
+                                                                    </div>
+                                                                    <div>
+                                                                        <apex:outputText value="{!$Label.ACAMSOrderConfirmationEmail_OrderSubtotal}: {0, number, currency}"
+                                                                                         rendered="{!IF(NOT(order.ccrz__SubtotalAmount__c == null || order.ccrz__SubtotalAmount__c == 0), TRUE, FALSE)}">
+                                                                            <apex:param value="{!order.ccrz__SubtotalAmount__c}"/>
+                                                                        </apex:outputText>
+                                                                    </div>
+                                                                    <div>
+                                                                        <apex:outputText value="{!$Label.ACAMSOrderConfirmationEmail_OrderShipping}: {0, number, currency}"
+                                                                                         rendered="{!IF(NOT(order.ccrz__ShipAmount__c == null || order.ccrz__ShipAmount__c == 0), TRUE, FALSE)}">
+                                                                            <apex:param value="{!order.ccrz__ShipAmount__c}"/>
+                                                                        </apex:outputText>
+                                                                    </div>
+                                                                    <div>
+                                                                        <apex:outputText value="{!$Label.ACAMSOrderConfirmationEmail_OrderTax}: {0, number, currency}"
+                                                                                         rendered="{!IF(NOT(order.ccrz__TaxAmount__c == null || order.ccrz__TaxAmount__c == 0), TRUE, FALSE)}">
+                                                                            <apex:param value="{!order.ccrz__TaxAmount__c}"/>
+                                                                        </apex:outputText>
+                                                                    </div>
+                                                                    <div>
+                                                                        <apex:outputText value="{!$Label.ACAMSOrderConfirmationEmail_OrderTotal}: {0, number, currency}"
+                                                                                         rendered="{!IF(NOT(order.ccrz__TotalAmount__c == null || order.ccrz__TotalAmount__c == 0), TRUE, FALSE)}">
+                                                                            <apex:param value="{!order.ccrz__TotalAmount__c}"/>
+                                                                        </apex:outputText>
+                                                                    </div>
+                                                                    <br/>
+                                                                </div>
+                                                                <apex:repeat value="{!order.ccrz__E_OrderItems__r}" var="item">
+                                                                    <div class="product">
+                                                                        <div class="title">
+                                                                            <apex:outputPanel layout="none" rendered="{!IF(NOT(item.ccrz__Product_Name__c == null), TRUE,
+                                                                                    FALSE)}">
+                                                                                <apex:outputText value="{!item.ccrz__Product_Name__c}"/>
+                                                                            </apex:outputPanel>
+                                                                        </div>
+                                                                        <div class="description">
+                                                                            <apex:outputPanel layout="none" rendered="{!IF(NOT(item.ccrz__Product__r.ccrz__SKU__C == null),
+                                                                                    TRUE, FALSE)}">
+                                                                                <apex:outputText value="{!item.ccrz__Product__r.ccrz__SKU__c}"/>
+                                                                            </apex:outputPanel>
+                                                                        </div>
+                                                                    </div>
+                                                                </apex:repeat>
+                                                                <div>
+                                                                    <apex:outputPanel layout="none" rendered="{!IF(NOT(order.ccrz__ShipTo__c == null), TRUE, FALSE)}">
+                                                                        <div class="shipping-address">
+                                                                            <div class="title">{!$Label.ACAMSOrderConfirmationEmail_ShippingAddress}:</div>
+                                                                            <div class="details">
+                                                                                <apex:outputPanel layout="none" rendered="{!IF(NOT(order.ccrz__ShipTo__r.ccrz__FirstName__c == null &&
+                                                                                        order.ccrz__ShipTo__r.ccrz__LastName__c == null), TRUE, FALSE)}">
+                                                                                    <apex:outputText value="{0} {1}">
+                                                                                        <apex:param value="{!order.ccrz__ShipTo__r.ccrz__FirstName__c}"/>
+                                                                                        <apex:param value="{!order.ccrz__ShipTo__r.ccrz__LastName__c}"/>
+                                                                                    </apex:outputText>
+                                                                                    <br/>
+                                                                                </apex:outputPanel>
+                                                                                <apex:outputPanel layout="none" rendered="{!IF(NOT(order.ccrz__ShipTo__r.ccrz__CompanyName__c == null),
+                                                                                        TRUE, FALSE)}">
+                                                                                    <apex:outputText value="{!order.ccrz__ShipTo__r.ccrz__CompanyName__c}"/><br/>
+                                                                                </apex:outputPanel>
+                                                                                <apex:outputPanel layout="none" rendered="{!IF(NOT(order.ccrz__ShipTo__r.ccrz__AddressFirstLine__c ==
+                                                                                        null), TRUE, FALSE)}">
+                                                                                    <apex:outputText value="{!order.ccrz__ShipTo__r.ccrz__AddressFirstline__c}"/><br/>
+                                                                                </apex:outputPanel>
+                                                                                <apex:outputPanel layout="none" rendered="{!IF(NOT(order.ccrz__ShipTo__r.ccrz__AddressSecondLine__c ==
+                                                                                        null), TRUE, FALSE)}">
+                                                                                    <apex:outputText value="{!order.ccrz__ShipTo__r.ccrz__AddressSecondline__c}"/><br/>
+                                                                                </apex:outputPanel>
+                                                                                <apex:outputPanel layout="none" rendered="{!IF(NOT(order.ccrz__ShipTo__r.ccrz__City__c == null &&
+                                                                                        order.ccrz__ShipTo__r.ccrz__StateISOCode__c == null &&
+                                                                                        order.ccrz__ShipTo__r.ccrz__PostalCode__c == null), TRUE, FALSE)}">
+                                                                                    <apex:outputText value="{0}, {1} {2}">
+                                                                                        <apex:param value="{!order.ccrz__ShipTo__r.ccrz__City__c}"/>
+                                                                                        <apex:param value="{!order.ccrz__ShipTo__r.ccrz__StateISOCode__c}"/>
+                                                                                        <apex:param value="{!order.ccrz__ShipTo__r.ccrz__PostalCode__c}"/>
+                                                                                    </apex:outputText>
+                                                                                </apex:outputPanel>
+                                                                            </div>
+                                                                        </div>
+                                                                        <br/>
+                                                                    </apex:outputPanel>
+                                                                    <apex:outputPanel layout="none" rendered="{!IF(NOT(order.ccrz__ShipMethod__c == null), TRUE, FALSE)}">
+                                                                        <div class="shipping-method">
+                                                                            <div class="title">{!$Label.ACAMSOrderConfirmationEmail_ShippingMethod}:</div>
+                                                                            <div class="details">
+                                                                                <div class="line-1">
+                                                                                        {!order.ccrz__ShipMethod__c}
+                                                                                </div>
+                                                                                <div class="line-3">
+                                                                                    <apex:outputText value="{!$Label.ACAMSOrderConfirmationEmail_RequireSignature}"/>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <br/>
+                                                                    </apex:outputPanel>
+                                                                    <div class="payment-method">
+                                                                        <div class="title">{!$Label.ACAMSOrderConfirmationEmail_PaymentMethod}:</div>
+                                                                        <apex:variable value="{!0}" var="totalPaid"/>
+                                                                        <apex:variable value="{!0}" var="maxPaid"/>
+                                                                        <div class="details">
+                                                                            <apex:repeat value="{!order.ccrz__TransactionPayments__r}" var="item">
+                                                                                <apex:outputPanel rendered="{!IF(item.ccrz__TransactionType__c == 'authorization,create_payment_token', TRUE, FALSE)}">
+                                                                                    <apex:outputPanel layout="none" rendered="{!IF(item.ccrz__AccountType__c == 'sopcc', TRUE,
+                                                                                            FALSE)}">
+                                                                                        <apex:variable var="totalPaid" value="{!totalPaid + IF(item.ccrz__Amount__c = null, 0, item.ccrz__Amount__c)}"/>
+                                                                                        <apex:variable var="maxPaid" value="{!IF(item.ccrz__Amount__c > maxPaid, item.ccrz__Amount__c, maxPaid)}"/>
+                                                                                        <apex:outputText rendered="{!IF(BEGINS(item.ccrz__PaymentType__c, '003'), TRUE, FALSE)}"
+                                                                                                         value="American Express ending in "/>
+                                                                                        <apex:outputText rendered="{!IF(BEGINS(item.ccrz__PaymentType__c, '001'), TRUE, FALSE)}"
+                                                                                                         value="Visa ending in "/>
+                                                                                        <apex:outputText rendered="{!IF(BEGINS(item.ccrz__PaymentType__c, '002'), TRUE, FALSE)}"
+                                                                                                         value="MasterCard ending in "/>
+                                                                                        <apex:outputText rendered="{!IF(BEGINS(item.ccrz__PaymentType__c, '004'), TRUE, FALSE)}"
+                                                                                                         value="Discover ending in "/>
+                                                                                        <apex:outputText value="{!RIGHT(item.ccrz__AccountNumber__c, 4)}"/>
+                                                                                        <br/>
+                                                                                    </apex:outputPanel>
+                                                                                </apex:outputPanel>
+
+                                                                                <apex:outputPanel layout="none" rendered="{!IF(item.ccrz__AccountType__c != 'sopcc', TRUE,
+                                                                                        FALSE)}">
+                                                                                    <apex:outputText value="{!$Label.ACAMSOrderConfirmationEmail_WireTransfer}"/>
+                                                                                </apex:outputPanel>
+                                                                                <br/>
+                                                                            </apex:repeat>
+                                                                            <apex:outputPanel layout="none" rendered="{!IF(order.ccrz__PaymentMethod__c = 'Direct Bill', TRUE,
+                                                                                        FALSE)}">
+                                                                                <apex:outputText value="{!$Label.ACAMSOrderConfirmationEmail_DirectBill}"/>
+                                                                            </apex:outputPanel>
+                                                                            <apex:outputPanel layout="none" rendered="{!IF(order.ccrz__PaymentMethod__c = 'CSR Zero Dollar', TRUE,
+                                                                                        FALSE)}">
+                                                                                <apex:outputText value="{!$Label.ACAMSOrderConfirmationEmail_NoneRequired}"/>
+                                                                            </apex:outputPanel>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+        <td><c:ACAMSEmailFooter /></td>
+    </table>
+    </body>
+    </html>
+</apex:component>

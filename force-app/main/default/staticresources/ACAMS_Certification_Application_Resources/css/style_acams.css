@@ -1,0 +1,13 @@
+
+/* Jeremy's style overrides to ones provided by HTMLBurger */
+
+
+.credits li {padding: 3px 7px;}
+
+.tabs .nav-tabs li {min-width: 110px;}
+
+
+
+
+.tab-content .form-certifications .form__file {background: #F7F7F7 !important;}
+

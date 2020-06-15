@@ -1,0 +1,49 @@
+<apex:page id="sitelogin" showHeader="false" controller="ACAMSSSOController" title="{!$Label.site.register}" action="{!redirect}">
+    <apex:composition template="ACAMSTemplateSignIn">
+        <apex:define name="body">
+            <apex:form styleClass="form"  id="loginForm" forceSSL="true">
+                <head>
+
+                </head>
+                <body>
+
+                </body>
+                <h1>Login</h1>
+                <div class='line'></div>
+                <div id="newsite" style="margin: 0 -30px; padding: 14px 30px; background-color:#FBF3BD">
+                    <!--<strong>We’ve recently made enhancements to our site.</strong>--> <br/>
+                    If you experience issues logging in, please contact us by&nbsp;<apex:outputLink value="http://www.acams.org/contact/" id="theLink">Webform</apex:outputLink> or call one of our&nbsp;<apex:outputLink value="http://www.acams.org/global-locations/" id="theLink1">Global Locations</apex:outputLink>.
+                </div>
+
+                <form class='input-form clearfix' id='sign-in-form' action=''>
+                    <table><tr><td><apex:messages id="msg"  style="color:red;" /></td></tr></table>
+                    <div><span>Username (Email)</span><br/><apex:inputText id="username" value="{!username}" /></div>
+                    <div><span>Password</span><br/><apex:inputSecret id="password" value="{!password}"  /></div>
+                    <div class="forgot-register-remember">
+                        <apex:outputLink value="{!drupalUrl}" styleClass="forgotten-password-link">Request a new password here</apex:outputLink>
+                        <apex:outputLink value="{!drupalRegisterUrl}"  styleClass="forgotten-password-link" rendered="{!!IF(CONTAINS($CurrentPage.URL, 'oid'),True, False)}">Register</apex:outputLink>
+                    </div>
+                    <apex:commandButton action="{!login}" value="Sign in" id="loginButton" styleClass="btn-sign-in btn-orange"/>
+                    <!-- ERROR STATE -->
+                    <!--
+                    <div class='error-box red' style="display:{!if(isLoginFailed == true,'block','none')};">
+                        <span class='error-message'>
+                        <apex:pageMessage severity="error" summary="Login Failed.Check the userName or Password" />
+                        </span>
+                    </div>
+                    -->
+                    <div class='sign-link'>
+                        <apex:outputLink value="{!drupalRegisterUrl}" styleClass="forgotten-password-link">Register now</apex:outputLink>
+                    </div>
+                </form>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+    <div class="footer">
+        <center> <apex:outputLink value="https://www.acams.org/privacy-policy/" target="_blank">Privacy Statement</apex:outputLink> &nbsp; </center>
+    </div>
+    <div>
+        <br/>
+        <br/>
+    </div>
+</apex:page>

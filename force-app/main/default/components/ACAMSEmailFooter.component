@@ -1,0 +1,20 @@
+<apex:component access="global" >
+
+    <table border="0" cellspacing="0" cellpadding="0" width="597" align="center">
+        <tbody>
+        <tr>
+            <td style="PADDING-BOTTOM: 20px; LINE-HEIGHT: 13px; PADDING-LEFT: 20px; PADDING-RIGHT: 20px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #666666; FONT-SIZE: 10px; PADDING-TOP: 20px"
+                align="left" valign="top">
+                <!-- EDIT DISCLAIMER COPY -->
+                <p>&#169; {!YEAR(TODAY())}&nbsp;
+                    <apex:outputText value="{!$Label.ACAMSGlobalEmail_PrivacyDisclaimer}" escape="false"/>
+                    <br/>
+                    <apex:outputText value="{!$Label.ACAMSGlobalEmail_MailingAddress}" escape="false"/>
+                </p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</apex:component>

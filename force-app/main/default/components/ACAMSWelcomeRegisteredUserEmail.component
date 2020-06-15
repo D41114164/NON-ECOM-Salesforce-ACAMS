@@ -1,0 +1,78 @@
+<apex:component access="global">
+    <apex:attribute name="recipientName" description="Email Recipient Name" type="String"/>
+    <apex:attribute name="recipientId" description="Email Recipient Id" type="String"/>
+    <apex:attribute name="recipientCreatedDate" description="Email Recipient Created Date" type="String"/>
+    <apex:attribute name="recipientEmail" description="Email Recipient Email Address" type="String"/>
+
+    <html>
+        <head>
+            <style type="text/css" xml:space="preserve">
+                BODY { BACKGROUND-COLOR: #ffffff }
+            </style>
+        </head>
+        <body bgcolor="#FFFFFF">
+        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+            <td><c:ACAMSEmailHeader /></td>
+            <tbody>
+            <tr>
+                <td valign="top" align="center">
+                    <table style="MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px" border="0" cellspacing="0" cellpadding="0" width="595" align="center">
+                        <tbody>
+                        <tr>
+                            <td style="BORDER: #b2cce5 1px solid; BORDER-TOP: 7px;">
+                                <table border="0" cellspacing="0" cellpadding="0" width="597" height="5">
+                                    <tbody style="BORDER: 10px solid;"> </tbody>
+                                </table>
+                                <table style="MARGIN-TOP: 0px" border="0" cellspacing="0" cellpadding="0" width="597" align="center">
+                                    <tbody>
+                                    <tr>
+                                        <td style="PADDING-BOTTOM: 24px; PADDING-TOP: 20px" valign="top" align="center">
+
+                                            <table width="550" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td>
+                                                        <table width="550" border="0" cellspacing="0" cellpadding="0" style="margin-top:5px; font-family:ProximaNova, Arial, Helvetica; font-size:14px; line-height:18px; font-weight:normal; color:#000000; text-align:left;">
+                                                            <tr>
+                                                                <td style="line-height:150%;">
+                                                                    <p>
+                                                                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                                                            <apex:param value="{!TODAY()}" />
+                                                                        </apex:outputText>&nbsp;
+                                                                    </p>
+                                                                    <p>
+                                                                        <apex:outputText value="{!$Label.ACAMSGlobalEmail_Dear} {0}, ">
+                                                                            <apex:param value="{!recipientName}"/>
+                                                                        </apex:outputText>
+                                                                    </p>
+
+                                                                    <apex:outputText value="{!$Label.ACAMSWelcomeEmail_MessageBody}" escape="false"/>&nbsp;
+
+                                                                    <h3 style="color:#2E64FE; border-top:1px solid #ddd; border-bottom:1px solid #ddd; padding:10px 0;">{!$Label.ACAMSWelcomeEmail_AccountSummary}</h3>
+                                                                    <p>
+                                                                        {!$Label.ACAMSWelcomeEmail_CustomerNumber} {!recipientId}<br/>
+                                                                        {!$Label.ACAMSWelcomeEmail_CreatedDate} {!recipientCreatedDate}<br/>
+                                                                        {!$Label.ACAMSWelcomeEmail_Email} {!recipientEmail}
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+            <td><c:ACAMSEmailFooter /></td>
+        </table>
+        </body>
+    </html>
+
+</apex:component>
