@@ -1,3 +1,7 @@
+/**
+ *  ACR-2255 test class for ACMSExamResultTriggerHandler
+ *  Jun 11, 2020, Ray
+ */
 @IsTest
 public class ACAMSExamResultTriggerHandlerTest {
 
