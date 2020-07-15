@@ -26,6 +26,9 @@ public with sharing class FSIT_AssetViewCCOrderController {
     // record id
     public Id sobjectId {get;set;}
 
+    // product id
+    public Id productId {get;set;}
+
     // set all asset list
     public List<Asset> assetList {get; set;}
 
@@ -51,6 +54,29 @@ public with sharing class FSIT_AssetViewCCOrderController {
     
     public FSIT_AssetViewCCOrderController(ApexPages.StandardController stdController) {
         // constructor init list/maps
+        
+
+        sobjectId = stdController.getId();
+
+        
+    }
+
+    public FSIT_AssetViewCCOrderController(){
+        if(String.isBlank(sobjectId)){
+            sobjectId = ApexPages.currentPage().getParameters().get('recordId');
+        }
+
+        if(String.isBlank(productId)){
+            productId = ApexPages.currentPage().getParameters().get('pdId');
+        }
+
+        if(String.isBlank(searchText)){
+            searchText = ApexPages.currentPage().getParameters().get('searchText');
+        }
+    }
+
+    // define init funciton to set all maps
+    public void dataInit(){
         skuProductIdMap = new Map<String, Id>();
 
         assignedAssetMap = new Map<String, List<Asset>>();
@@ -58,9 +84,7 @@ public with sharing class FSIT_AssetViewCCOrderController {
 
         unassignedAssetMap = new Map<String, List<Asset>>();
 
-
         inactivedAssetMap = new Map<String, List<Asset>>();
-
 
         allAssetMap = new Map<String, List<Asset>>();
         allAssetSize = new Map<String, Decimal>();
@@ -69,18 +93,11 @@ public with sharing class FSIT_AssetViewCCOrderController {
         unassignedAssetSize = new Map<String, Decimal>();
 
         inactiveAssetSize = new Map<String, Decimal>();
-
-        sobjectId = stdController.getId();
-        
         skuSet = new Set<String>();
 
         totalAssets = 0;
 
         displayAssetList = new List<Asset>();
-    }
-
-    // define init funciton to set all maps
-    public void dataInit(){
         
         if(sobjectId != null){
             assetList = [
@@ -112,11 +129,6 @@ public with sharing class FSIT_AssetViewCCOrderController {
                     if(ast.CC_Product__c != null && ast.CC_Product__r.ccrz__SKU__c != null && allAssetMap.keySet() != null && allAssetMap.keySet().contains(String.valueOf(ast.CC_Product__r.ccrz__SKU__c))){
                         allAssetMap.get(String.valueOf(ast.CC_Product__r.ccrz__SKU__c)).add(ast);
                     }
-                    // else if(ast.CC_Product__c != null && ast.CC_Product__r.ccrz__SKU__c != null && allAssetMap.get(String.valueOf(ast.CC_Product__r.ccrz__SKU__c)) == null){
-                    //     List<Asset> astList = new List<Asset>();
-                    //     astList.add(ast);
-                    //     allAssetMap.put(String.valueOf(ast.CC_Product__r.ccrz__SKU__c), astList);
-                    // }
                     if(ast.CC_Product__c != null && ast.CC_Product__r.ccrz__SKU__c != null){
                         skuProductIdMap.put(ast.CC_Product__r.ccrz__SKU__c,ast.CC_Product__c);
                     }
@@ -139,17 +151,7 @@ public with sharing class FSIT_AssetViewCCOrderController {
                         if(ast.CC_Product__c != null && ast.CC_Product__r.ccrz__SKU__c != null && assignedAssetMap.keySet() != null  && assignedAssetMap.keySet().contains(ast.CC_Product__r.ccrz__SKU__c)){
                             assignedAssetMap.get(String.valueOf(ast.CC_Product__r.ccrz__SKU__c)).add(ast);
                         }
-                        // else if(ast.CC_Product__c != null && ast.CC_Product__r.ccrz__SKU__c != null && assignedAssetMap.get(String.valueOf(ast.CC_Product__r.ccrz__SKU__c)) == null){
-                        //     List<Asset> astList = new List<Asset>();
-                        //     astList.add(ast);
-                        //     assignedAssetMap.put(String.valueOf(ast.CC_Product__r.ccrz__SKU__c), astList);
-                        // }
                     }
-                    // else{
-                    //     List<Asset> astList = new List<Asset>();
-                    //     assignedAssetMap.put(String.valueOf(ast.CC_Product__r.ccrz__SKU__c),astList);
-                    // }
-
                 }
 
                 if(assignedAssetMap != null && assignedAssetMap.size() > 0){
@@ -164,16 +166,7 @@ public with sharing class FSIT_AssetViewCCOrderController {
                         if(ast.CC_Product__c != null && ast.CC_Product__r.ccrz__SKU__c != null && unassignedAssetMap.keySet() != null  && unassignedAssetMap.keySet().contains(ast.CC_Product__r.ccrz__SKU__c)){
                             unassignedAssetMap.get(String.valueOf(ast.CC_Product__r.ccrz__SKU__c)).add(ast);
                         }
-                        // else if(ast.CC_Product__c != null && ast.CC_Product__r.ccrz__SKU__c != null &&  unassignedAssetMap.get(String.valueOf(ast.CC_Product__r.ccrz__SKU__c)) == null){
-                        //     List<Asset> astList = new List<Asset>();
-                        //     astList.add(ast);
-                        //     unassignedAssetMap.put(String.valueOf(ast.CC_Product__r.ccrz__SKU__c), astList);
-                        // }
                     }
-                    // else{
-                    //     List<Asset> astList = new List<Asset>();
-                    //     unassignedAssetMap.put(String.valueOf(ast.CC_Product__r.ccrz__SKU__c),astList);
-                    // }
                 }
 
                
@@ -191,19 +184,7 @@ public with sharing class FSIT_AssetViewCCOrderController {
                         if(ast.CC_Product__c != null  &&  ast.CC_Product__r.ccrz__SKU__c != null && inactivedAssetMap.keySet() != null  && inactivedAssetMap.keySet().contains(ast.CC_Product__r.ccrz__SKU__c)){
                             inactivedAssetMap.get(String.valueOf(ast.CC_Product__r.ccrz__SKU__c)).add(ast);
                         }
-                        
-                        // else if(ast.CC_Product__c != null && ast.CC_Product__r.ccrz__SKU__c != null && inactivedAssetMap.get(String.valueOf(ast.CC_Product__r.ccrz__SKU__c)) == null){
-                        //     List<Asset> astList = new List<Asset>();
-                        //     astList.add(ast);
-                        //     inactivedAssetMap.put(String.valueOf(ast.CC_Product__r.ccrz__SKU__c), astList);
-                        // }
                     }
-                    // else{
-                    //     if(inactivedAssetMap.values() == null || inactivedAssetMap.values().size() <= 0){
-                    //         List<Asset> astList = new List<Asset>();
-                    //         inactivedAssetMap.put(String.valueOf(ast.CC_Product__r.ccrz__SKU__c),astList);
-                    //     }
-                    // }
                 }
                
                 if(inactivedAssetMap != null && inactivedAssetMap.size() > 0){
@@ -212,32 +193,24 @@ public with sharing class FSIT_AssetViewCCOrderController {
                     }
                 }
 
-
-
             }
+        }
+
+        assetTypes = '';
+
+        if(sobjectId != null && !String.isBlank(productId)){
+            displayAssetList = [
+                SELECT Id, Name,CC_Product__c,CC_Product__r.ccrz__SKU__c,Status__c,Assignee__c,CC_Order__c,CC_Product__r.Name,CreatedDate,Product_Level_1__c,Product_Level_2__c,Product_Level_3__c,CurrentExpirationDate__c,InstallDate 
+                FROM Asset 
+                WHERE CC_Product__c =: productId AND CC_Order__c =: sobjectId 
+                ORDER BY CreatedDate
+            ];
         }
         
     }
 
-    // filter by asset filter first then filter by product name
-    public PageReference filterWithProductSKU(){
-        // clear the input
-        assetTypes = '';
 
-        if(sobjectId != null){
-            displayAssetList = [
-                SELECT Id, Name,CC_Product__c,CC_Product__r.ccrz__SKU__c,Status__c,Assignee__c,CC_Order__c,CC_Product__r.Name,CreatedDate,Product_Level_1__c,Product_Level_2__c,Product_Level_3__c,CurrentExpirationDate__c,InstallDate 
-                FROM Asset 
-                WHERE CC_Product__c =: skuProductIdMap.get(searchText) AND CC_Order__c =: sobjectId 
-                ORDER BY CreatedDate
-            ];
-        }
-
-        return null;
-
-    }
-
-    public PageReference runSearch(){
+    public void runSearch(){
         /*
         displayAssetList = [
                 SELECT Id, Name,CC_Product__c,CC_Product__r.ccrz__SKU__c,Status__c,Assignee__c,CC_Order__c,CC_Product__r.Name,CreatedDate  
@@ -246,7 +219,7 @@ public with sharing class FSIT_AssetViewCCOrderController {
                 ORDER BY CreatedDate
             ];
             */
-
+           
             if(assetTypes == 'Assigned_Asset'){
                 displayAssetList = assignedAssetMap.get(searchText);
             }
@@ -259,7 +232,7 @@ public with sharing class FSIT_AssetViewCCOrderController {
                 displayAssetList = inactivedAssetMap.get(searchText);
             }
 
-        return null;
+  
     }
 
 }

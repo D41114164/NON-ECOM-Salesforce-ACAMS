@@ -7,10 +7,10 @@
 public class FSIT_AssetViewPersonalAccountController {
     public List<Asset> pageAssetList {get ;set;}
     public List<Asset> displayAssetList {get; set;}
-    public List<Account> acctList {get; set;}
+
     public String assetGroupingValue {get; set{assetGroupingValue = value;}}
     public String searchText {get; set;}
-    public String name { get; set{name = value;} }
+
 
     //setup assetGrouprecords,listofasset map
     public Map<String, List<Asset>> assetMap {get; set;}
@@ -21,14 +21,29 @@ public class FSIT_AssetViewPersonalAccountController {
 
 
     public FSIT_AssetViewPersonalAccountController(ApexPages.StandardController stdController) {
-        assetMap = new Map<String, List<Asset>>();
-        groupNameSizeMap = new Map<String, Integer> ();
-        displayAssetList = new List<Asset>();
+        
         sobjectId = stdController.getId();
         System.debug('sssssssssobjectId---->'+sobjectId);
     }
 
+    public FSIT_AssetViewPersonalAccountController(){
+        if(String.isBlank(sobjectId)){
+            if(!String.isBlank(ApexPages.currentPage().getParameters().get('recordId'))){
+                sobjectId = ApexPages.currentPage().getParameters().get('recordId');
+            }
+        }
+
+        if(String.isBlank(assetGroupingValue)){
+            assetGroupingValue = ApexPages.currentPage().getParameters().get('pdId');
+        }
+    }
+
     public void dataInit(){
+        //init
+        assetMap = new Map<String, List<Asset>>();
+        groupNameSizeMap = new Map<String, Integer> ();
+        displayAssetList = new List<Asset>();
+
         //init
         if(sobjectId != null){
             pageAssetList=[SELECT Id, Name,Assignee__c,InstallDate,Assignee__r.AccountId,Assignee__r.Name,Status__c,CC_Product__r.Name,Product_Level_1__c,Product_Level_2__c,Product_Level_3__c,CurrentExpirationDate__c,CancelDate__c FROM Asset
@@ -36,7 +51,7 @@ public class FSIT_AssetViewPersonalAccountController {
         }
         else{
             pageAssetList=[SELECT Id, Name,Assignee__c,InstallDate,Assignee__r.Name,Status__c,CC_Product__r.Name,Product_Level_1__c,Product_Level_2__c,Product_Level_3__c,CurrentExpirationDate__c,CancelDate__c FROM Asset
-            WHERE CancelDate__c = null AND Product_Level_2__c != NULL AND Status__c = 'Active' ORDER BY CurrentExpirationDate__c];
+            WHERE CancelDate__c = null AND Product_Level_2__c != NULL AND Status__c = 'Active' ORDER BY CurrentExpirationDate__c LIMIT 1000];
         }
         assetSetting = [SELECT Id, Asset_Grouping__c FROM ACAMSAssetSetting__mdt LIMIT 1];
         List<String> assetGroupingValues = String.valueOf(assetSetting[0].Asset_Grouping__c).split(';');
@@ -61,6 +76,8 @@ public class FSIT_AssetViewPersonalAccountController {
             }
             keyValues = groupNameSizeMap.keySet();
         }
+
+        displayAssetList = assetMap.get(assetGroupingValue);
         
     }
 
@@ -77,7 +94,7 @@ public class FSIT_AssetViewPersonalAccountController {
 
         else{
             displayAssetList = [SELECT Id, Name,Assignee__c,InstallDate,Assignee__r.Name,CC_Product__r.Name,Product_Level_1__c,Product_Level_2__c,Product_Level_3__c,CurrentExpirationDate__c,CancelDate__c,Status__c FROM Asset
-            WHERE CancelDate__c = null AND Product_Level_2__c != NULL AND Product_Level_2__c =: assetGroupingValue AND Status__c = 'Active' AND Name LIKE : '%'+searchText+'%' ORDER BY CurrentExpirationDate__c];
+            WHERE CancelDate__c = null AND Product_Level_2__c != NULL AND Product_Level_2__c =: assetGroupingValue AND Status__c = 'Active' AND Name LIKE : '%'+searchText+'%' ORDER BY CurrentExpirationDate__c LIMIT 1000];
         }
         return null;
     }

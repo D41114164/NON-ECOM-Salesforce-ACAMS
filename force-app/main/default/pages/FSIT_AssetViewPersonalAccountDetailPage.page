@@ -1,0 +1,150 @@
+<apex:page controller="FSIT_AssetViewPersonalAccountController" showHeader="false" standardStylesheets="false" sidebar="true"
+    docType="html-5.0" action="{!dataInit}">
+    <apex:slds />
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
+        <apex:form >
+            <div class="slds-card">
+                <article class="slds-card">
+
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-account" title="account">
+                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                        <use xlink:href="{!URLFOR($Asset.SLDS, '/assets/icons/standard-sprite/svg/symbols.svg#account')}"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Assets Detail</span>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Accounts">
+                                        <span>Assets Detail</span>
+                                    </a>
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
+                </article>
+         
+                <apex:outputpanel id="AssetListSectionId">
+                    <article class="slds-card" style="background-color: rgb(144, 142, 142); color:white;padding:2px;">
+                        <div class="slds-card__body slds-card__body_inner"><b>Asset Group Name(#) : {!assetGroupingValue}     ({!displayAssetList.size}-{!groupNameSizeMap[assetGroupingValue]})</b></div>
+                    
+                      </article>
+
+                      <article class="slds-card">
+                        <div class="slds-card__body slds-card__body_inner"><b>Search Asset by Name:</b></div>
+                        <!-- <input type="text" id="name" onkeyup="doSearch();"  /> -->
+                        <div class="slds-card__body slds-card__body_inner"><apex:inputText id="searchText" value="{!searchText}" />
+                         <apex:commandButton value="Go!" action="{!runSearch}" rerender="AssetListSectionId" status="status" /></div>
+                        <apex:actionStatus id="status" startText="requesting..." />
+                        <footer class="slds-card__footer">
+                          
+                        </footer>
+                      </article>
+
+                    <apex:outputpanel rendered="{!displayAssetList.size>0}">
+    
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Asset Name">Asset Name</div>
+                                    </th>
+    
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Asset Name">Product Name</div>
+                                    </th>
+    
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Asset Level">Product Level 1</div>
+                                    </th>
+    
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Asset Level">Product Level 2</div>
+                                    </th>
+    
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Asset Level">Product Level 3</div>
+                                    </th>
+    
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Asset Level">Expire Date</div>
+                                    </th>
+    
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Install Date">Payment Date</div>
+                                    </th>
+    
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Asset Name">Account Name</div>
+                                    </th>
+                                </tr>
+                            </thead>
+    
+                            <tbody>
+                                <apex:repeat value="{!displayAssetList}" var="asset">
+                                    <tr class="slds-hint-parent">
+                                        <td data-label="{!asset.Name}" scope="row">
+                                            <div class="slds-truncate" title="Asset Type">
+                                                <apex:outputLink target="_blank" value="/{!asset.Id}" id="theLink">{!asset.Name}</apex:outputLink>
+                                            </div>
+                                        </td>
+    
+                                        <td data-label="Asset Name">
+                                            <div class="slds-truncate" title="Cloudhub">
+                                                {!asset.CC_Product__r.Name}
+                                            </div>
+                                        </td>
+                                        
+                                        <td data-label="Asset Product Level 1">
+                                            <div class="slds-truncate" title="Cloudhub">
+                                                {!asset.Product_Level_1__c}
+                                            </div>
+                                        </td>
+    
+                                        <td data-label="Asset Product Level 2">
+                                            <div class="slds-truncate" title="Cloudhub">
+                                                {!asset.Product_Level_2__c}
+                                            </div>
+                                        </td>
+    
+                                        <td data-label="Asset Product Level 3">
+                                            <div class="slds-truncate" title="Cloudhub">
+                                                {!asset.Product_Level_3__c}
+                                            </div>
+                                        </td>
+    
+                                        <td data-label="Asset Expire Date">
+                                            <div class="slds-truncate" title="Cloudhub">
+                                                {!asset.CurrentExpirationDate__c}
+                                            </div>
+                                        </td>
+    
+                                        <td data-label="Asset Install Date">
+                                            <div class="slds-truncate" title="Cloudhub">
+                                                {!asset.InstallDate}
+                                            </div>
+                                        </td>
+    
+                                        <td data-label="Asset Account">
+                                            <div class="slds-truncate" title="Cloudhub">
+                                                {!asset.Assignee__r.Name}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </apex:repeat>
+                            </tbody>
+                        </table>
+    
+                    </apex:outputpanel>
+                </apex:outputpanel>
+            </div>
+        </apex:form>
+        </html>
+</apex:page>

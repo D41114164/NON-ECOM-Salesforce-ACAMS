@@ -98,9 +98,9 @@
                                     <td data-label="Product Name">
                                         <div class="slds-truncate" title="Cloudhub">
                                             <apex:actionRegion >
-                                                <apex:commandLink action="{!filterWithProductSKU}" value="{!productNameSize[key]}" id="theCommandLink" rerender="AssetListSectionId"
-                                                    onclick="scrollDown();">
-                                                    <apex:param name="ProductSKUvalues" value="{!key}" assignTo="{!searchText}" />
+                                                <apex:commandLink value="{!productNameSize[key]}" id="theCommandLink" rerender="AssetListSectionId"
+                                                    onclick="window.open('/apex/FSIT_AssetViewCCOrderDetailPage?recordId={!sobjectId}&pdId={!skuProductIdMap[key]}&searchText={!key}','height=500, width=500');">
+                                                    <!-- <apex:param name="ProductSKUvalues" value="{!key}" assignTo="{!searchText}" /> -->
                                                 </apex:commandLink>
                                             </apex:actionRegion>
                                         </div>
@@ -136,130 +136,6 @@
                 </apex:outputpanel>
             </section>
 
-        </div>
-
-        <div class="slds-card">
-
-            <apex:outputpanel id="AssetListSectionId">
-                <apex:outputpanel rendered="{!displayAssetList.size>0}">
-                    <!--
-                    <article class="slds-card" style="background-color: rgb(144, 142, 142); color:white">
-                        <div class="slds-card__body slds-card__body_inner">
-                            <b>Asset Group Name(#) : {!assetGroupingValue} ({!displayAssetList.size}-{!groupNameSizeMap[assetGroupingValue]})</b>
-                        </div>
-                        <footer class="slds-card__footer">
-
-                        </footer>
-                    </article>
-                    -->
-                    <article class="slds-card">
-                        <div class="slds-card__body slds-card__body_inner">
-                            <b>Search Asset by Asset Type:</b>
-                        </div>
-                        <!-- <input type="text" id="name" onkeyup="doSearch();"  /> -->
-                        <div class="slds-card__body slds-card__body_inner">
-                            
-                            <apex:selectList id="assetTypes" value="{!assetTypes}" size="1">
-                                <apex:selectOption itemValue="" itemLabel="-- NONE --"/>
-                                <apex:selectOption itemValue="Assigned_Asset" itemLabel="Assigned Asset"/>
-                                <apex:selectOption itemValue="Unassigned_Asset" itemLabel="Unassigned Asset"/>
-                                <apex:selectOption itemValue="Inactive_Asset" itemLabel="Inactive Asset"/>
-                                <apex:actionSupport event="onchange" rerender="AssetListSectionId" action="{!runSearch}" status="status"/>
-                            </apex:selectList>
-                            <!--
-                            <apex:commandButton value="Go!" action="{!runSearch}" rerender="AssetListSectionId" status="status" immediate="true"/>
-                            -->
-                        </div>
-                        <apex:actionStatus id="status" startText="requesting..." />
-                        <footer class="slds-card__footer">
-
-                        </footer>
-                    </article>
-
-                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
-                        <thead>
-                            <tr class="slds-line-height_reset">
-                                <th class="" scope="col">
-                                    <div class="slds-truncate" title="Asset Name">Asset Name</div>
-                                </th>
-
-                                <th class="" scope="col">
-                                    <div class="slds-truncate" title="Asset Name">Product Name</div>
-                                </th>
-
-                                <th class="" scope="col">
-                                    <div class="slds-truncate" title="Asset Level">Level 1</div>
-                                </th>
-
-                                <th class="" scope="col">
-                                    <div class="slds-truncate" title="Asset Level">Level 2</div>
-                                </th>
-
-                                <th class="" scope="col">
-                                    <div class="slds-truncate" title="Asset Level">Level 3</div>
-                                </th>
-
-                                <th class="" scope="col">
-                                    <div class="slds-truncate" title="Asset Expire date">Expire Date</div>
-                                </th>
-
-                                <th class="" scope="col">
-                                    <div class="slds-truncate" title="Asset Payment">Payment Date</div>
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <apex:repeat value="{!displayAssetList}" var="asset">
-                                <tr class="slds-hint-parent">
-                                    <td data-label="{!asset.Name}" scope="row">
-                                        <div class="slds-truncate" title="Asset Type">
-                                            <apex:outputLink target="_blank" value="/{!asset.Id}" id="theLink">{!asset.Name}</apex:outputLink>
-                                        </div>
-                                    </td>
-
-                                    <td data-label="Asset Name">
-                                        <div class="slds-truncate" title="Cloudhub">
-                                            {!asset.CC_Product__r.Name}
-                                        </div>
-                                    </td>
-
-                                    <td data-label="Asset Name">
-                                        <div class="slds-truncate" title="Cloudhub">
-                                            {!asset.Product_Level_1__c}
-                                        </div>
-                                    </td>
-
-                                    <td data-label="Asset Name">
-                                        <div class="slds-truncate" title="Cloudhub">
-                                            {!asset.Product_Level_2__c}
-                                        </div>
-                                    </td>
-
-                                    <td data-label="Asset Name">
-                                        <div class="slds-truncate" title="Cloudhub">
-                                            {!asset.Product_Level_3__c}
-                                        </div>
-                                    </td>
-
-                                    <td data-label="Asset Name">
-                                        <div class="slds-truncate" title="Cloudhub">
-                                            {!asset.CurrentExpirationDate__c}
-                                        </div>
-                                    </td>
-
-                                    <td data-label="Asset Name">
-                                        <div class="slds-truncate" title="Cloudhub">
-                                            {!asset.InstallDate}
-                                        </div>
-                                    </td>
-                                </tr>
-                            </apex:repeat>
-                        </tbody>
-                    </table>
-
-                </apex:outputpanel>
-            </apex:outputpanel>
         </div>
 
     </apex:form>

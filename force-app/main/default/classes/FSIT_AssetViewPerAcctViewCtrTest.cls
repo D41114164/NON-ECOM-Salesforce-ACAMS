@@ -37,6 +37,7 @@ public with sharing class FSIT_AssetViewPerAcctViewCtrTest {
         Test.startTest();
         ApexPages.StandardController sc = new ApexPages.StandardController(account);
         FSIT_AssetViewPersonalAccountController testCtr = new FSIT_AssetViewPersonalAccountController(sc);
+        FSIT_AssetViewPersonalAccountController testCtrNo = new FSIT_AssetViewPersonalAccountController();
 
         PageReference pageRef = Page.FSIT_AssetViewPersonalAccountPage;
         pageRef.getParameters().put('id', String.valueOf(account.Id));

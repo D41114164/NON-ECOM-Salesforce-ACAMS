@@ -50,13 +50,12 @@ public with sharing class FSIT_AssetViewCCOrderCtrTest {
         Test.startTest();
         ApexPages.StandardController sc = new ApexPages.StandardController(ccOrder);
         FSIT_AssetViewCCOrderController testCtr = new FSIT_AssetViewCCOrderController(sc);
-
+        FSIT_AssetViewCCOrderController testCtrExp = new FSIT_AssetViewCCOrderController();
         PageReference pageRef = Page.FSIT_AssetViewCCOrderPage;
         pageRef.getParameters().put('id', String.valueOf(account.Id));
         Test.setCurrentPage(pageRef);
         testCtr.dataInit();
         testCtr.searchText = 'CAMS';
-        testCtr.filterWithProductSKU();
         testCtr.runSearch();
 
         Test.stopTest();
